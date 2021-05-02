@@ -21,7 +21,7 @@ const InputWrapper = ({
       onChange(value);
     }
 
-    if (validation(value)) {
+    if (validation && validation(value)) {
       showError(false);
     } else {
       showError(true);

@@ -8,8 +8,9 @@ import DatePickerWrapper from './DatePickerWrapper';
 
 import Header from './Header';
 import Footer from './Footer';
-import ErrorMessageCaption from './ErrorMessageCaption';
+
 import InputWrapper from './InputWrapper';
+import FormField from './FormField';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,8 +47,9 @@ const FormPrincipal = props => {
   const withCaptionHeightGap = 72;
 
   const updateValues = (key, value) => {
+    // console.log(key, value);
     let copy = {...formValues};
-    //console.log(copy);
+
     copy[key] = value;
 
     let formIsValid,
@@ -96,6 +98,7 @@ const FormPrincipal = props => {
     }
 
     setformValues(copy);
+    //console.log(formValues);
   };
 
   const postData = () => {
@@ -112,113 +115,119 @@ const FormPrincipal = props => {
         footer={() => (
           <Footer action={() => postData()} disabled={!formIsValid} />
         )}>
-        <View style={{height: noCaptionHeightGap}}>
-          <Input
-            placeholder="Prefix i.e. Mr, Mrs"
-            value={formValues.prefix}
-            onChangeText={value => updateValues('prefix', value)}
-          />
-        </View>
-        <View style={{height: withCaptionHeightGap}}>
-          <SelectWrapper
-            placeholder="Choose Gender"
-            options={['Choose Gender', 'Male', 'Female']}
-            onChange={value => updateValues('gender', value)}
-            caption=""
-            status="danger"
-            error="Gender was not selected"
-            validation={Utils.validateGender}
-          />
-        </View>
+        <FormField
+          type="text"
+          name="prefix"
+          placeholder="Prefix i.e. Mr, Mrs"
+          value={formValues.prefix}
+          onChange={updateValues}
+        />
 
-        <View style={{height: withCaptionHeightGap}}>
-          <InputWrapper
-            placeholder="First Name"
-            value={formValues.firstName}
-            onChange={value => {
-              updateValues('firstName', value);
-            }}
-            caption="Enter the first name"
-            error="Must be greather than 3"
-            status="danger"
-            validation={Utils.validateLen}
-          />
-        </View>
-        <View style={{height: noCaptionHeightGap}}>
-          <Input
-            placeholder="Middle Name"
-            onChangeText={value => updateValues('middleName', value)}
-          />
-        </View>
-        <View style={{height: withCaptionHeightGap}}>
-          <InputWrapper
-            placeholder="Last Name"
-            value={formValues.lastName}
-            onChange={value => {
-              updateValues('lastName', value);
-            }}
-            caption="Enter the last name"
-            error="Must be greather than 3"
-            status="danger"
-            validation={Utils.validateLen}
-          />
-        </View>
-        <View style={{height: noCaptionHeightGap}}>
-          <Input
-            placeholder="Postfix i.e. Dr., Jr., II"
-            onChangeText={value => updateValues('postfix', value)}
-          />
-        </View>
-        <View style={{height: withCaptionHeightGap}}>
-          <DatePickerWrapper
-            placeholder="mm/dd/yyyy"
-            onChange={value => updateValues('dob', value)}
-            caption="Enter a date of birth or SSN."
-            error="Must be older than 18"
-            status="warning"
-            validation={Utils.validateAge}
-          />
-        </View>
-        <View style={{height: withCaptionHeightGap}}>
-          <InputWrapper
-            placeholder="SSN: (000-00-0000)"
-            value={formValues.ssn}
-            onChange={value => {
-              updateValues('ssn', value);
-            }}
-            caption="Enter a social security number or Dob."
-            error="Must be 9 digits"
-            status="warning"
-            validation={Utils.validateSSN}
-            formatter={Utils.getSSNFormat}
-          />
-        </View>
-        <View style={{height: withCaptionHeightGap}}>
-          <InputWrapper
-            placeholder="your@email.com"
-            value={formValues.email}
-            onChange={value => {
-              updateValues('email', value);
-            }}
-            caption="Email"
-            error="Email is not valid"
-            status="danger"
-            validation={Utils.validateEmail}
-          />
-        </View>
-        <View style={{height: noCaptionHeightGap}}>
-          <Input
-            placeholder="(949) 390-3036"
-            onChangeText={value => updateValues('phone', value)}
-          />
-        </View>
-        <View style={{height: withCaptionHeightGap}}>
-          <Input
-            placeholder="Alternate Phone (000) 000-0000 (EVC)"
-            onChangeText={value => updateValues('phoneAlt', value)}
-            caption="Enter secondary EVC phone number (Not Required)."
-          />
-        </View>
+        <FormField
+          type="select"
+          name="gender"
+          placeholder="Choose Gender"
+          options={['Choose Gender', 'Male', 'Female']}
+          value={formValues.prefix}
+          onChange={updateValues}
+          status="danger"
+          error="Gender was not selected"
+          validation={Utils.validateGender}
+        />
+
+        <FormField
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          value={formValues.firstName}
+          onChange={updateValues}
+          caption="Enter the first name"
+          error="Must be greather than 3"
+          status="danger"
+          validation={Utils.validateLen}
+        />
+
+        <FormField
+          type="text"
+          name="middleName"
+          placeholder="Middle Name"
+          value={formValues.prefix}
+          onChange={updateValues}
+        />
+
+        <FormField
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={formValues.lastName}
+          onChange={updateValues}
+          caption="Enter the last name"
+          error="Must be greather than 3"
+          status="danger"
+          validation={Utils.validateLen}
+        />
+
+        <FormField
+          type="text"
+          name="postfix"
+          placeholder="Postfix i.e. Dr., Jr., II"
+          value={formValues.postfix}
+          onChange={updateValues}
+        />
+
+        <FormField
+          type="date"
+          name="dob"
+          placeholder="mm/dd/yyyy"
+          value={formValues.dob}
+          onChange={updateValues}
+          caption="Enter a date of birth or SSN."
+          error="Must be older than 18"
+          status="warning"
+          validation={Utils.validateAge}
+        />
+
+        <FormField
+          type="text"
+          name="ssn"
+          placeholder="SSN: (000-00-0000)"
+          value={formValues.ssn}
+          onChange={updateValues}
+          caption="Enter a social security number or Dob."
+          error="Must be 9 digits"
+          status="warning"
+          validation={Utils.validateSSN}
+          formatter={Utils.getSSNFormat}
+        />
+
+        <FormField
+          type="text"
+          name="email"
+          placeholder="your@email.com"
+          value={formValues.email}
+          onChange={updateValues}
+          caption="Email"
+          error="Email is not valid"
+          status="danger"
+          validation={Utils.validateEmail}
+        />
+
+        <FormField
+          type="text"
+          name="phone"
+          placeholder="(949) 390-3036"
+          value={formValues.phone}
+          onChange={updateValues}
+        />
+
+        <FormField
+          type="text"
+          name="phoneAlt"
+          placeholder="Alternate Phone (000) 000-0000 (EVC)"
+          value={formValues.phoneAlt}
+          onChange={updateValues}
+          caption="Enter secondary EVC phone number (Not Required)."
+        />
       </Card>
     </ScrollView>
   );
