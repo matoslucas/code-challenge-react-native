@@ -1,33 +1,15 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
-import {Card, Input} from '@ui-kitten/components';
+import {ScrollView} from 'react-native';
+import {Card} from '@ui-kitten/components';
 
 import Utils from '../utils/utils';
-import SelectWrapper from './SelectWrapper';
-import DatePickerWrapper from './DatePickerWrapper';
 
 import Header from './Header';
 import Footer from './Footer';
 
-import InputWrapper from './InputWrapper';
 import FormField from './FormField';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mainTitle: {
-    color: '#333',
-    fontWeight: '700',
-  },
-  likeButton: {
-    marginVertical: 16,
-  },
-});
-
-const FormPrincipal = props => {
+const FormPrincipal = () => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [formValues, setformValues] = useState({
     prefix: '',
@@ -42,9 +24,6 @@ const FormPrincipal = props => {
     phone: '',
     phoneAlt: '',
   });
-
-  const noCaptionHeightGap = 58;
-  const withCaptionHeightGap = 72;
 
   const updateValues = (key, value) => {
     // console.log(key, value);
