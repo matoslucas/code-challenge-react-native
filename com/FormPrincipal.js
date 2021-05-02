@@ -185,7 +185,7 @@ const FormPrincipal = () => {
           placeholder="your@email.com"
           value={formValues.email}
           onChange={updateValues}
-          caption="Email"
+          caption="Enter email"
           error="Email is not valid"
           status="danger"
           validation={Utils.validateEmail}
